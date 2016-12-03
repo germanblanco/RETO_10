@@ -17,4 +17,4 @@ El objetivo sera que se alcance un estado en el que se lea un valor distinto de 
 
 - Me connecto a un servidor con "docker-compose run --rm zkcli -server zookeeper3" hago "get /hola", el valor que se ve en la primera linea es 123.
 
-- Me connecto a un servidor con "docker-compose run --rm zkcli -server zookeeper3" hago "get /hola", el valor que se ve en la primera linea es 321.
+- Me connecto a otro servidor con "docker-compose run --rm zkcli -server zookeeper1" hago "get /hola", el valor que se ve en la primera linea es 321.

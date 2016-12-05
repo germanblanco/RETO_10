@@ -1,8 +1,17 @@
-# https://docs.docker.com/engine/reference/builder/
-# https://hub.docker.com/r/jplock/zookeeper/
+FROM openjdk:8-jre-alpine
 
-# latest at the time of writing was 3.4.9
-FROM jplock/zookeeper:3.4.9
+ARG MIRROR=http://apache.mirrors.pair.com
+ARG VERSION=3.4.9
+
+RUN apk add --no-cache wget bash \
+    && mkdir /opt \
+    && wget -q -O - $MIRROR/zookeeper/zookeeper-$VERSION/zookeeper-$VERSION.tar.gz | tar -xzf - -C /opt \
+    && mv /opt/zookeeper-$VERSION /opt/zookeeper \
+    && mkdir -p /tmp/zookeeper
+
 COPY zoo.cfg /opt/zookeeper/conf/zoo.cfg
+
+WORKDIR /opt/zookeeper
+
 ENTRYPOINT ["/opt/zookeeper/bin/zkCli.sh"]
 CMD ["help"]

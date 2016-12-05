@@ -11,7 +11,7 @@ Para realizar la actividad se propone el uso de el cluster de ZooKeeper incluido
 El sistema de pruebas se arranca con un docker-compose up. A partir de ahi, se pueden realizar las siguientes acciones:
 
 - Crear y actualizar datos usando "docker-compose run --rm zkcli -server zookeeperX" y "create /hola 123" o "set /hola 321".
-- Matar y levantar cada uno de los docker de ZooKeeper con "docker-compose down zookeeperX" y "docker-compose up zookeeperX", donde X es un numero del 1 al 3.
+- Parar y levantar cada uno de los docker de ZooKeeper con "docker-compose stop zookeeperX" y "docker-compose up zookeeperX", donde X es un numero del 1 al 3.
 - Borrar los datos de alguno de los docker de Zookeeper con "docker-compose rm -vaf zookeeperX".
 
 El objetivo sera que se alcance un estado en el que se lea un valor distinto de un dato dependiendo del servidor de ZooKeeper al  que  estemos conectados dentro del mismo cluster (obviamente todos los miembros del cluster deberian presentar el mismo valor de  todos  los datos). Es decir:

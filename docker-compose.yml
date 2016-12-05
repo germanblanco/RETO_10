@@ -1,3 +1,5 @@
+# https://docs.docker.com/compose/compose-file/
+
 version: '2'
 
 services:
@@ -11,7 +13,7 @@ services:
       zk_net:
         ipv4_address: 172.19.0.3
     volumes:
-      - ./zookeeper_data:/var/zookeeper
+      - ./zookeeper_data:/zookeeper_data
     extra_hosts:
         zookeeper1: 172.19.0.3
         zookeeper2: 172.19.0.4

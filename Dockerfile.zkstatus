@@ -1,0 +1,7 @@
+# https://docs.docker.com/engine/reference/builder/
+# https://hub.docker.com/r/jplock/zookeeper/
+
+# latest at the time of writing was 3.4.9
+FROM jplock/zookeeper:3.4.9
+COPY zkstatus-entrypoint.sh /opt/zookeeper/bin/zkstatus-entrypoint.sh
+ENTRYPOINT ["bash", "/opt/zookeeper/bin/zkstatus-entrypoint.sh"]

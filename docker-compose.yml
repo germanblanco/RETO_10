@@ -10,7 +10,14 @@ services:
       args:
         myid: 1
     networks:
-      - back
+      zk_net:
+        ipv4_address: 172.19.0.3
+    volumes:
+      - ./zookeeper_data:/var/zookeeper
+    extra_hosts:
+        zookeeper1: 172.19.0.3
+        zookeeper2: 172.19.0.4
+        zookeeper3: 172.19.0.5
   zookeeper2:
     build:
       dockerfile: Dockerfile.zookeeper
@@ -18,7 +25,12 @@ services:
       args:
         myid: 2
     networks:
-      - back
+      zk_net:
+        ipv4_address: 172.19.0.4
+    extra_hosts:
+        zookeeper1: 172.19.0.3
+        zookeeper2: 172.19.0.4
+        zookeeper3: 172.19.0.5
   zookeeper3:
     build:
       dockerfile: Dockerfile.zookeeper
@@ -26,7 +38,22 @@ services:
       args:
         myid: 3
     networks:
-      - back
+      zk_net:
+        ipv4_address: 172.19.0.5
+    extra_hosts:
+        zookeeper1: 172.19.0.3
+        zookeeper2: 172.19.0.4
+        zookeeper3: 172.19.0.5
+  zkstatus:
+    build:
+      dockerfile: Dockerfile.zkstatus
+      context: .
+    networks:
+      - zk_net
+    extra_hosts:
+        zookeeper1: 172.19.0.3
+        zookeeper2: 172.19.0.4
+        zookeeper3: 172.19.0.5
   zkcli:
     build:
       dockerfile: Dockerfile.zkcli
@@ -34,8 +61,16 @@ services:
     stdin_open: true
     tty: true
     networks:
-      - back
+      - zk_net
+    extra_hosts:
+        zookeeper1: 172.19.0.3
+        zookeeper2: 172.19.0.4
+        zookeeper3: 172.19.0.5
 
 networks:
-  back:
+  zk_net:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.19.0.0/24
+          gateway: 172.19.0.1

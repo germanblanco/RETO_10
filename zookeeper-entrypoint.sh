@@ -16,8 +16,8 @@ do
         ping -c 1 $host
         rc=$?
         if [[ $rc -eq 0 ]] ; then
-            mkdir -p /zookeeper_data
-            echo $MYID > /zookeeper_data/myid
+            mkdir -p /var/zookeeper
+            echo $MYID > /var/zookeeper/myid
             /opt/zookeeper/bin/zkServer.sh start-foreground
             exit 0
         fi
